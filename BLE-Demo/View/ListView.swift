@@ -5,6 +5,16 @@
 
 import SwiftUI
 
+extension Array {
+    public subscript(index: Int, default defaultValue: @autoclosure () -> Element) -> Element {
+        guard index >= 0, index < endIndex else {
+            return defaultValue()
+        }
+        
+        return self[index]
+    }
+}
+
 struct ListView: View {
     @EnvironmentObject var bleManager: BLEViewModel
     
@@ -34,9 +44,20 @@ struct ListView: View {
                         .padding(10)
                     
                     List {
-                        PeripheralCells()
+                        Section {
+                            PeripheralCells()
+                        } header: {
+                            Toggle(isOn: $bleManager.isFilterEnabled) {
+                                Text("Only Bulb Service UUID (\(BLEViewModel.Constants.serviceUUID))")
+                            }
+                        }
                     }
                 }
+            }
+        }
+        .onReceive(bleManager.$isFilterEnabled) { value in
+            if bleManager.isSearching {
+                bleManager.startScan()
             }
         }
         .navigationBarTitle("BLE Demo")
@@ -46,8 +67,7 @@ struct ListView: View {
         @EnvironmentObject var bleManager: BLEViewModel
         
         var body: some View {
-            ForEach(0..<bleManager.foundPeripherals.count, id: \.self) { index in
-                let peripheral = bleManager.foundPeripherals[index]
+            ForEach(bleManager.foundPeripherals, id: \.id) { peripheral in
                 Button(action: {
                     bleManager.connectPeripheral(peripheral)
                 }) {

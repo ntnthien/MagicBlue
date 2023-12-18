@@ -35,6 +35,13 @@ struct DetailView: View {
                     .font(.title3)
                     .padding(10)
                 
+                Picker("Effect",
+                       selection: $viewModel.effectB) {
+                    ForEach(Effect.allCases, id: \.self) {
+                        Text($0.description)
+                    }
+                }
+                
                 List {
                     CharacteriticCells()
                 }
@@ -47,6 +54,10 @@ struct DetailView: View {
             .onReceive(viewModel.$status, perform: { status in
                 let command: Command = status ? .turnOn : .turnOff
                 viewModel.writeCommand(command: command)
+            })
+            .onReceive(viewModel.$effectB, perform: { effect in
+//                guard let effect else { return }
+                viewModel.writeCommand(command: .setEffect(effect: effect, speed: 20))
             })
         }
     }
