@@ -68,53 +68,5 @@
             landmarkType = "7">
          </BreakpointContent>
       </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "AAE0BAB1-BF3C-4597-A682-7F3E90EB6444"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BLE-Demo/ViewModel/CoreBluetooth/BLEViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "221"
-            endingLineNumber = "221"
-            landmarkName = "didUpdateValue(_:characteristic:error:)"
-            landmarkType = "7">
-            <Locations>
-               <Location
-                  uuid = "AAE0BAB1-BF3C-4597-A682-7F3E90EB6444 - 2d1fe33993d0af93"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "BLE_Demo.BLEViewModel.didUpdateValue(_: BLE_Demo.CBPeripheralProtocol, characteristic: __C.CBCharacteristic, error: Swift.Optional&lt;Swift.Error&gt;) -&gt; ()"
-                  moduleName = "BLE-Demo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/do/Desktop/dots/BLE-Demo/MagicBlue/BLE-Demo/ViewModel/CoreBluetooth/BLEViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "222"
-                  endingLineNumber = "222"
-                  offsetFromSymbolStart = "1640">
-               </Location>
-               <Location
-                  uuid = "AAE0BAB1-BF3C-4597-A682-7F3E90EB6444 - 2d1fe33993d0af93"
-                  shouldBeEnabled = "Yes"
-                  ignoreCount = "0"
-                  continueAfterRunningActions = "No"
-                  symbolName = "BLE_Demo.BLEViewModel.didUpdateValue(_: BLE_Demo.CBPeripheralProtocol, characteristic: __C.CBCharacteristic, error: Swift.Optional&lt;Swift.Error&gt;) -&gt; ()"
-                  moduleName = "BLE-Demo"
-                  usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/do/Desktop/dots/BLE-Demo/MagicBlue/BLE-Demo/ViewModel/CoreBluetooth/BLEViewModel.swift"
-                  startingColumnNumber = "9223372036854775807"
-                  endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "222"
-                  endingLineNumber = "222"
-                  offsetFromSymbolStart = "1780">
-               </Location>
-            </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
    </Breakpoints>
 </Bucket>

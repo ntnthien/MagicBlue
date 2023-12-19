@@ -22,26 +22,10 @@ struct ListView: View {
         ZStack {
             navigateToDetailView(isDetailViewLinkActive: $bleManager.isConnected)
             
-            GeometryReader { proxy in
-                VStack {
-                    Button(action: {
-                        if bleManager.isSearching {
-                            bleManager.stopScan()
-                        } else {
-                            bleManager.startScan()
-                        }
-                    }) {
-                        Text(bleManager.isSearching ? "Stop scanning" : "Start scanning")
-                            .padding()
-                            .foregroundColor(Color.blue)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 10)
-                                    .stroke(Color.blue, lineWidth: 2))
-                    }
-                    
-                    Text("Bluetooth state is \(bleManager.managerState.description)")
-                        .font(.title3)
-                        .padding(10)
+//                VStack {
+//                    Text("Bluetooth state is \(bleManager.managerState.description)")
+//                        .font(.title3)
+//                        .padding(10)
                     
                     List {
                         Section {
@@ -52,8 +36,20 @@ struct ListView: View {
                             }
                         }
                     }
+//                }
+            
+        }
+        .toolbar {
+            Button(action: {
+                if bleManager.isSearching {
+                    bleManager.stopScan()
+                } else {
+                    bleManager.startScan()
                 }
+            }) {
+                Text(bleManager.isSearching ? "Stop scanning" : "Start scanning")
             }
+            
         }
         .onReceive(bleManager.$isFilterEnabled) { value in
             if bleManager.isSearching {

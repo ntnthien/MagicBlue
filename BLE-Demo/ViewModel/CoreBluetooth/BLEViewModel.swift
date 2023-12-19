@@ -55,6 +55,7 @@ class BLEViewModel: NSObject, ObservableObject {
     @Published var foundCharacteristics: [ThermoCharacteristic] = []
     @Published var connectedDeviceName: String?
     @Published var color: Color = .red
+    @Published var brightness: UInt8 = 0
     @Published var status: Bool = false
     @Published var effectB: Effect = .blueGradualChange
     @Published var isFilterEnabled: Bool = false
@@ -150,9 +151,8 @@ extension BLEViewModel: CBCentralManagerProtocolDelegate {
         connectedPeripheral.peripheral.discoverServices(nil)
         connectedDeviceName = peripheral.name
        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
             self.writeCommand(command: .getDeviceInfo)
-
         }
     }
     
@@ -218,7 +218,7 @@ extension BLEViewModel: CBPeripheralProtocolDelegate {
         if characteristicValue.count >= 11 && characteristicValue[0] == 0x66 && characteristicValue[11] == 0x99 {
             print("device info")
             
-            
+            updateDeviceInfo(buffer: characteristicValue.uint8Array)
         }
         if let index = foundCharacteristics.firstIndex(where: { $0.uuid.uuidString == characteristic.uuid.uuidString }) {
             foundCharacteristics[index].readValue = Double(value)
@@ -230,41 +230,30 @@ extension BLEViewModel: CBPeripheralProtocolDelegate {
 
     }
     
-//    func subscribeToRecvCharacteristic() {
-//        guard let char = _recvCharacteristic else {
-//            // Handle the case where _recvCharacteristic is nil
-//            return
-//        }
-//        var char = writeCharacteristic
-//        let handle = char?.value + 1
-//        var msg = Data([0x01, 0x00])
-//        
-//        _connection.writeCharacteristic(handle, value: &msg)
-//    }
-    
-    static func decodeDeviceInfo(buffer: [UInt8]) -> [String: Any] {
-           var info: [String: Any] = [
-               "device_type": buffer[1],
-               "on": buffer[2] == 0x23,
-               "effect_no": buffer[3],
-               "effect_speed": buffer[5],
-               "r": buffer[6],
-               "g": buffer[7],
-               "b": buffer[8],
-               "brightness": buffer[9],
-               "version": buffer[10]
-           ]
-
-//           do {
-//               if let effectNo = info["effect_no"] as? Int {
-//                   info["effect"] = try Effect(effectNo)
-//               }
-//           } catch {
-//               // Handle the error as needed
-//           }
-
-           return info
-       }
+    func updateDeviceInfo(buffer: [UInt8]) {
+        var info: [String: Any] = [
+            "device_type": buffer[1],
+            "on": buffer[2] == 0x23,
+            "effect_no": buffer[3],
+            "effect_speed": buffer[5],
+            "r": buffer[6],
+            "g": buffer[7],
+            "b": buffer[8],
+            "brightness": buffer[9],
+            "version": buffer[10]
+        ]
+        
+        status = buffer[2] == 0x23
+        
+        if let effect = Effect(rawValue: buffer[3]) {
+            effectB = effect
+        }
+        if #available(iOS 15.0, *) {
+            let newColor: UIColor = .init(red: CGFloat(buffer[6]) / 255, green: CGFloat(buffer[7]) / 255, blue: CGFloat(buffer[8]) / 255, alpha: 1)
+            self.color = Color(uiColor: newColor)
+        } 
+        brightness = buffer[9]
+    }
     
     func writeCommand(command: Command, type: CBCharacteristicWriteType = .withoutResponse) {
         foundPeripherals.forEach { peripheral in
@@ -342,6 +331,7 @@ enum Command {
     case setNotification
     case getDeviceInfo
     case setColor(color: Color)
+    case setBrightness(value: UInt8)
     case setEffect(effect: Effect, speed: UInt8)
     
     var command: [UInt8] {
@@ -359,9 +349,11 @@ enum Command {
             var command: [UInt8] = [0x56, 0x00, 0xF0, 0xAA]
             command.insert(contentsOf: colors, at: 1)
             return command
+        case .setBrightness(let value):
+            return [0x56, 0x00, 0x00, 0x00, value, 0x0F, 0xAA]
         case .setEffect(let effect, let speed):
             var speed = max(speed, 1)
-            speed = max(speed, 20)
+            speed = min(speed, 20)
             var command: [UInt8] = [0xBB, effect.rawValue, speed, 0x44]
             return command
         }
@@ -385,5 +377,20 @@ extension Color {
 extension UInt8 {
     var hexString: String {
         "0x" + String(self, radix: 16, uppercase: true)
+    }
+}
+
+extension Data {
+    var uint8Array: [UInt8] {
+        var uint8Array = [UInt8](repeating: 0, count: self.count)
+
+        self.withUnsafeBytes { buffer in
+            guard let pointer = buffer.baseAddress else {
+                // Handle the case where the buffer pointer is nil
+                return
+            }
+            uint8Array = Array(UnsafeBufferPointer(start: pointer.assumingMemoryBound(to: UInt8.self), count: self.count))
+        }
+        return uint8Array
     }
 }
