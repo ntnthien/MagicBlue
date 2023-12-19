@@ -149,6 +149,11 @@ extension BLEViewModel: CBCentralManagerProtocolDelegate {
         connectedPeripheral.peripheral.delegate = self
         connectedPeripheral.peripheral.discoverServices(nil)
         connectedDeviceName = peripheral.name
+       
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) {
+            self.writeCommand(command: .getDeviceInfo)
+
+        }
     }
     
     func didFailToConnect(_ central: CBCentralManagerProtocol, peripheral: CBPeripheralProtocol, error: Error?) {
@@ -179,7 +184,7 @@ extension BLEViewModel: CBPeripheralProtocolDelegate {
     }
     
     func didDiscoverCharacteristics(_ peripheral: CBPeripheralProtocol, service: CBService, error: Error?) {
-        guard service.uuid.uuidString == Constants.serviceUUID else { return }
+//        guard service.uuid.uuidString == Constants.serviceUUID else { return }
         service.characteristics?.forEach { characteristic in
             let setCharacteristic: ThermoCharacteristic = .init(uuid: characteristic.uuid,
                                                                readValue: nil,
@@ -192,6 +197,11 @@ extension BLEViewModel: CBPeripheralProtocolDelegate {
             
             if characteristic.uuid.uuidString == Constants.readCharacteristic {
                 readCharacteristic = characteristic
+                peripheral.setNotifyValue(true, for: readCharacteristic)
+
+                peripheral.writeValue(Data(Command.setNotification.command),
+                                                 for: readCharacteristic,
+                                      type: .withResponse)
             } else if characteristic.uuid.uuidString == Constants.writeCharacteristic {
                 writeCharacteristic = characteristic
             }
@@ -202,23 +212,66 @@ extension BLEViewModel: CBPeripheralProtocolDelegate {
         guard
               let characteristicValue = characteristic.value else { return }
         
-        let value = characteristicValue.withUnsafeBytes { $0.load(as: Int8.self) }
-
+        let value = characteristicValue.withUnsafeBytes { $0.load(as: UInt8.self) }
+        
+        print("value \(characteristicValue) - len: \(characteristicValue.count) - \(value.hexString)")
+        if characteristicValue.count >= 11 && characteristicValue[0] == 0x66 && characteristicValue[11] == 0x99 {
+            print("device info")
+            
+            
+        }
         if let index = foundCharacteristics.firstIndex(where: { $0.uuid.uuidString == characteristic.uuid.uuidString }) {
             foundCharacteristics[index].readValue = Double(value)
             objectWillChange.send()
         }
     }
     
-    func didWriteValue(_ peripheral: CBPeripheralProtocol, descriptor: CBDescriptor, error: Error?) {}
+    func didWriteValue(_ peripheral: CBPeripheralProtocol, descriptor: CBDescriptor, error: Error?) {
+
+    }
     
+//    func subscribeToRecvCharacteristic() {
+//        guard let char = _recvCharacteristic else {
+//            // Handle the case where _recvCharacteristic is nil
+//            return
+//        }
+//        var char = writeCharacteristic
+//        let handle = char?.value + 1
+//        var msg = Data([0x01, 0x00])
+//        
+//        _connection.writeCharacteristic(handle, value: &msg)
+//    }
     
-    func writeCommand(command: Command) {
+    static func decodeDeviceInfo(buffer: [UInt8]) -> [String: Any] {
+           var info: [String: Any] = [
+               "device_type": buffer[1],
+               "on": buffer[2] == 0x23,
+               "effect_no": buffer[3],
+               "effect_speed": buffer[5],
+               "r": buffer[6],
+               "g": buffer[7],
+               "b": buffer[8],
+               "brightness": buffer[9],
+               "version": buffer[10]
+           ]
+
+//           do {
+//               if let effectNo = info["effect_no"] as? Int {
+//                   info["effect"] = try Effect(effectNo)
+//               }
+//           } catch {
+//               // Handle the error as needed
+//           }
+
+           return info
+       }
+    
+    func writeCommand(command: Command, type: CBCharacteristicWriteType = .withoutResponse) {
         foundPeripherals.forEach { peripheral in
             guard let writeCharacteristic else { return }
             peripheral.peripheral.writeValue(Data(command.command),
                                              for: writeCharacteristic,
-                                             type: .withoutResponse)
+                                             type: type)
         }
     }
     
@@ -286,6 +339,8 @@ enum Effect: UInt8, CaseIterable {
 enum Command {
     case turnOn
     case turnOff
+    case setNotification
+    case getDeviceInfo
     case setColor(color: Color)
     case setEffect(effect: Effect, speed: UInt8)
     
@@ -295,6 +350,10 @@ enum Command {
             return [0xCC, 0x23, 0x33]
         case .turnOff:
             return [0xCC, 0x24, 0x33]
+        case .setNotification:
+            return [0x01, 0x00]
+        case .getDeviceInfo:
+            return [0xEF, 0x01, 0x77]
         case .setColor(let color):
             let colors = color.uInt8Array
             var command: [UInt8] = [0x56, 0x00, 0xF0, 0xAA]
@@ -320,5 +379,11 @@ extension Color {
         let roundB = UInt8(Float(b * 255))
         
         return [roundR, roundG, roundB]
+    }
+}
+
+extension UInt8 {
+    var hexString: String {
+        "0x" + String(self, radix: 16, uppercase: true)
     }
 }

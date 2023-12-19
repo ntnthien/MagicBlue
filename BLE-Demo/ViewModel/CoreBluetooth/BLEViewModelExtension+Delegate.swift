@@ -5,24 +5,7 @@
 
 import CoreBluetooth
 
-extension BLEViewModel: CBCentralManagerDelegate, CBPeripheralDelegate {
-    
-    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
-        didDiscoverServices(peripheral, error: error)
-    }
-    
-    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
-        didDiscoverCharacteristics(peripheral, service: service, error: error)
-    }
-    
-    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
-        didUpdateValue(peripheral, characteristic: characteristic, error: error)
-    }
-    
-    func peripheral(_ peripheral: CBPeripheral, didWriteValueFor descriptor: CBDescriptor, error: Error?) {
-        didWriteValue(peripheral, descriptor: descriptor, error: error)
-    }
-
+extension BLEViewModel: CBCentralManagerDelegate {
     func centralManagerDidUpdateState(_ central: CBCentralManager) {
         didUpdateState(central)
     }
@@ -56,4 +39,23 @@ extension BLEViewModel: CBCentralManagerDelegate, CBPeripheralDelegate {
     func centralManager(_ central: CBCentralManager, didUpdateANCSAuthorizationFor peripheral: CBPeripheral) {
         didUpdateANCSAuthorization(central, peripheral: peripheral)
     }
+}
+
+extension BLEViewModel: CBPeripheralDelegate {
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverServices error: Error?) {
+        didDiscoverServices(peripheral, error: error)
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didDiscoverCharacteristicsFor service: CBService, error: Error?) {
+        didDiscoverCharacteristics(peripheral, service: service, error: error)
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didUpdateValueFor characteristic: CBCharacteristic, error: Error?) {
+        didUpdateValue(peripheral, characteristic: characteristic, error: error)
+    }
+    
+    func peripheral(_ peripheral: CBPeripheral, didWriteValueFor descriptor: CBDescriptor, error: Error?) {
+        didWriteValue(peripheral, descriptor: descriptor, error: error)
+    }
+
 }

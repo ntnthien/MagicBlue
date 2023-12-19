@@ -71,81 +71,49 @@
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "2C9F7126-4481-4D03-8F20-E0EB7E7F6178"
+            uuid = "AAE0BAB1-BF3C-4597-A682-7F3E90EB6444"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
-            filePath = "BLE-Demo/View/ListView.swift"
+            filePath = "BLE-Demo/ViewModel/CoreBluetooth/BLEViewModel.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "59"
-            endingLineNumber = "59"
-            landmarkName = "body"
-            landmarkType = "24">
+            startingLineNumber = "221"
+            endingLineNumber = "221"
+            landmarkName = "didUpdateValue(_:characteristic:error:)"
+            landmarkType = "7">
             <Locations>
                <Location
-                  uuid = "2C9F7126-4481-4D03-8F20-E0EB7E7F6178 - 90d83e59dfcc9dac"
+                  uuid = "AAE0BAB1-BF3C-4597-A682-7F3E90EB6444 - 2d1fe33993d0af93"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "closure #2 (Swift.Bool) -&gt; () in BLE_Demo.ListView.body.getter : some"
+                  symbolName = "BLE_Demo.BLEViewModel.didUpdateValue(_: BLE_Demo.CBPeripheralProtocol, characteristic: __C.CBCharacteristic, error: Swift.Optional&lt;Swift.Error&gt;) -&gt; ()"
                   moduleName = "BLE-Demo"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/do/Desktop/dots/BLE-Demo/MagicBlue/BLE-Demo/View/ListView.swift"
+                  urlString = "file:///Users/do/Desktop/dots/BLE-Demo/MagicBlue/BLE-Demo/ViewModel/CoreBluetooth/BLEViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "59"
-                  endingLineNumber = "59"
-                  offsetFromSymbolStart = "72">
+                  startingLineNumber = "222"
+                  endingLineNumber = "222"
+                  offsetFromSymbolStart = "1640">
                </Location>
                <Location
-                  uuid = "2C9F7126-4481-4D03-8F20-E0EB7E7F6178 - bc788e092893aa50"
+                  uuid = "AAE0BAB1-BF3C-4597-A682-7F3E90EB6444 - 2d1fe33993d0af93"
                   shouldBeEnabled = "Yes"
                   ignoreCount = "0"
                   continueAfterRunningActions = "No"
-                  symbolName = "BLE_Demo.ListView.body.getter : some"
+                  symbolName = "BLE_Demo.BLEViewModel.didUpdateValue(_: BLE_Demo.CBPeripheralProtocol, characteristic: __C.CBCharacteristic, error: Swift.Optional&lt;Swift.Error&gt;) -&gt; ()"
                   moduleName = "BLE-Demo"
                   usesParentBreakpointCondition = "Yes"
-                  urlString = "file:///Users/do/Desktop/dots/BLE-Demo/MagicBlue/BLE-Demo/View/ListView.swift"
+                  urlString = "file:///Users/do/Desktop/dots/BLE-Demo/MagicBlue/BLE-Demo/ViewModel/CoreBluetooth/BLEViewModel.swift"
                   startingColumnNumber = "9223372036854775807"
                   endingColumnNumber = "9223372036854775807"
-                  startingLineNumber = "73"
-                  endingLineNumber = "73"
-                  offsetFromSymbolStart = "396">
+                  startingLineNumber = "222"
+                  endingLineNumber = "222"
+                  offsetFromSymbolStart = "1780">
                </Location>
             </Locations>
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "21B3C92E-F9E0-47F0-A67A-F044C3693980"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BLE-Demo/View/ListView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "29"
-            endingLineNumber = "29"
-            landmarkName = "body"
-            landmarkType = "24">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "1037EB6A-9D75-47F8-A6FD-6B1C3827E52A"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "BLE-Demo/View/ListView.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "31"
-            endingLineNumber = "31"
-            landmarkName = "body"
-            landmarkType = "24">
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>
