@@ -46,7 +46,7 @@ struct DetailView: View {
     }
     
     var colorStack: some View {
-        ColorPicker(selection: $viewModel.color) {
+        ColorPicker(selection: $viewModel.color, supportsOpacity: false) {
             Text("Color")
         }
         .onReceive(viewModel.$color) { color in
@@ -55,14 +55,34 @@ struct DetailView: View {
     }
     
     var effectStack: some View {
-        Picker("Effect",
-               selection: $viewModel.effectB) {
-            ForEach(Effect.allCases, id: \.self) {
-                Text($0.description)
+        VStack(alignment: .leading) {
+            Picker("Effect",
+                   selection: $viewModel.effectB) {
+                ForEach(Effect.allCases, id: \.self) {
+                    Text($0.description)
+                }
+            }
+            
+            Slider(
+                value: .init(get: {
+                    Double(viewModel.effectSpeed)
+                }, set: { value in
+                    viewModel.effectSpeed = UInt8(value)
+                }),
+                in: 0...20
+            ) {
+                Text("Speed")
+            } minimumValueLabel: {
+                Text("Fast")
+            } maximumValueLabel: {
+                Text("Low")
             }
         }
         .onReceive(viewModel.$effectB) { effect in
-            viewModel.writeCommand(command: .setEffect(effect: effect, speed: 20))
+            viewModel.writeCommand(command: .setEffect(effect: effect, speed: viewModel.effectSpeed))
+        }
+        .onReceive(viewModel.$effectSpeed) { speed in
+            viewModel.writeCommand(command: .setEffect(effect: viewModel.effectB, speed: speed))
         }
     }
     

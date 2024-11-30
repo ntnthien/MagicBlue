@@ -12,7 +12,7 @@
 		7134F38A25C93B7D00DAD350 /* Characteristic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7134F38225C93B7D00DAD350 /* Characteristic.swift */; };
 		7134F39325C93FE100DAD350 /* BLEViewModelExtension+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7134F39225C93FE100DAD350 /* BLEViewModelExtension+Delegate.swift */; };
 		7134F3A925CA3AC900DAD350 /* Service.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7134F3A825CA3AC900DAD350 /* Service.swift */; };
-		715D90E425C9086500F19093 /* BLE_DemoApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715D90E325C9086500F19093 /* BLE_DemoApp.swift */; };
+		715D90E425C9086500F19093 /* MagicBlueApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715D90E325C9086500F19093 /* MagicBlueApp.swift */; };
 		715D90E625C9086500F19093 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715D90E525C9086500F19093 /* ContentView.swift */; };
 		715D90E825C9086700F19093 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 715D90E725C9086700F19093 /* Assets.xcassets */; };
 		715D90EB25C9086700F19093 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 715D90EA25C9086700F19093 /* Preview Assets.xcassets */; };
@@ -20,6 +20,8 @@
 		715D910325C9229000F19093 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715D910225C9229000F19093 /* ListView.swift */; };
 		715D910725C9229A00F19093 /* DetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 715D910625C9229A00F19093 /* DetailView.swift */; };
 		71A6E9A226D4115600B400BC /* BLEView+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71A6E9A126D4115600B400BC /* BLEView+Navigation.swift */; };
+		C29D1E542CFB7AF600777B47 /* Command.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29D1E532CFB7AF600777B47 /* Command.swift */; };
+		C29D1E562CFB7B1300777B47 /* Effect.swift in Sources */ = {isa = PBXBuildFile; fileRef = C29D1E552CFB7B1300777B47 /* Effect.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,8 +30,8 @@
 		7134F38225C93B7D00DAD350 /* Characteristic.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Characteristic.swift; sourceTree = "<group>"; };
 		7134F39225C93FE100DAD350 /* BLEViewModelExtension+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BLEViewModelExtension+Delegate.swift"; sourceTree = "<group>"; };
 		7134F3A825CA3AC900DAD350 /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
-		715D90E025C9086500F19093 /* BLE-Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "BLE-Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		715D90E325C9086500F19093 /* BLE_DemoApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BLE_DemoApp.swift; sourceTree = "<group>"; };
+		715D90E025C9086500F19093 /* MagicBlue.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MagicBlue.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		715D90E325C9086500F19093 /* MagicBlueApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagicBlueApp.swift; sourceTree = "<group>"; };
 		715D90E525C9086500F19093 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		715D90E725C9086700F19093 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		715D90EA25C9086700F19093 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
@@ -38,6 +40,8 @@
 		715D910225C9229000F19093 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; };
 		715D910625C9229A00F19093 /* DetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailView.swift; sourceTree = "<group>"; };
 		71A6E9A126D4115600B400BC /* BLEView+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "BLEView+Navigation.swift"; sourceTree = "<group>"; };
+		C29D1E532CFB7AF600777B47 /* Command.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Command.swift; sourceTree = "<group>"; };
+		C29D1E552CFB7B1300777B47 /* Effect.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Effect.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -90,7 +94,7 @@
 		715D90D725C9086500F19093 = {
 			isa = PBXGroup;
 			children = (
-				715D90E225C9086500F19093 /* BLE-Demo */,
+				715D90E225C9086500F19093 /* MagicBlue */,
 				715D90E125C9086500F19093 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -98,15 +102,15 @@
 		715D90E125C9086500F19093 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				715D90E025C9086500F19093 /* BLE-Demo.app */,
+				715D90E025C9086500F19093 /* MagicBlue.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		715D90E225C9086500F19093 /* BLE-Demo */ = {
+		715D90E225C9086500F19093 /* MagicBlue */ = {
 			isa = PBXGroup;
 			children = (
-				715D90E325C9086500F19093 /* BLE_DemoApp.swift */,
+				715D90E325C9086500F19093 /* MagicBlueApp.swift */,
 				7134F36925C9349400DAD350 /* Model */,
 				715D910D25C92DA000F19093 /* ViewModel */,
 				715D910125C9228400F19093 /* View */,
@@ -114,7 +118,7 @@
 				715D90EC25C9086700F19093 /* Info.plist */,
 				715D90E925C9086700F19093 /* Preview Content */,
 			);
-			path = "BLE-Demo";
+			path = MagicBlue;
 			sourceTree = "<group>";
 		};
 		715D90E925C9086700F19093 /* Preview Content */ = {
@@ -139,6 +143,8 @@
 		715D910D25C92DA000F19093 /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				C29D1E552CFB7B1300777B47 /* Effect.swift */,
+				C29D1E532CFB7AF600777B47 /* Command.swift */,
 				7134F39025C93C3D00DAD350 /* CoreBluetooth */,
 			);
 			path = ViewModel;
@@ -163,9 +169,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		715D90DF25C9086500F19093 /* BLE-Demo */ = {
+		715D90DF25C9086500F19093 /* MagicBlue */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 715D90EF25C9086700F19093 /* Build configuration list for PBXNativeTarget "BLE-Demo" */;
+			buildConfigurationList = 715D90EF25C9086700F19093 /* Build configuration list for PBXNativeTarget "MagicBlue" */;
 			buildPhases = (
 				715D90DC25C9086500F19093 /* Sources */,
 				715D90DD25C9086500F19093 /* Frameworks */,
@@ -175,9 +181,9 @@
 			);
 			dependencies = (
 			);
-			name = "BLE-Demo";
+			name = MagicBlue;
 			productName = "SwiftUI-BLE-Project";
-			productReference = 715D90E025C9086500F19093 /* BLE-Demo.app */;
+			productReference = 715D90E025C9086500F19093 /* MagicBlue.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -194,7 +200,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 715D90DB25C9086500F19093 /* Build configuration list for PBXProject "BLE-Demo" */;
+			buildConfigurationList = 715D90DB25C9086500F19093 /* Build configuration list for PBXProject "MagicBlue" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -207,7 +213,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				715D90DF25C9086500F19093 /* BLE-Demo */,
+				715D90DF25C9086500F19093 /* MagicBlue */,
 			);
 		};
 /* End PBXProject section */
@@ -232,14 +238,16 @@
 				7134F38925C93B7D00DAD350 /* CBPeripheralProtcolDelegate.swift in Sources */,
 				7134F3A925CA3AC900DAD350 /* Service.swift in Sources */,
 				715D90E625C9086500F19093 /* ContentView.swift in Sources */,
+				C29D1E562CFB7B1300777B47 /* Effect.swift in Sources */,
 				7134F36B25C934A800DAD350 /* Peripheral.swift in Sources */,
 				715D910325C9229000F19093 /* ListView.swift in Sources */,
 				71A6E9A226D4115600B400BC /* BLEView+Navigation.swift in Sources */,
 				7134F39325C93FE100DAD350 /* BLEViewModelExtension+Delegate.swift in Sources */,
-				715D90E425C9086500F19093 /* BLE_DemoApp.swift in Sources */,
+				715D90E425C9086500F19093 /* MagicBlueApp.swift in Sources */,
 				715D910725C9229A00F19093 /* DetailView.swift in Sources */,
 				7134F38A25C93B7D00DAD350 /* Characteristic.swift in Sources */,
 				715D90F825C90B6C00F19093 /* BLEViewModel.swift in Sources */,
+				C29D1E542CFB7AF600777B47 /* Command.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -370,10 +378,10 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_ASSET_PATHS = "\"BLE-Demo/Preview Content\"";
-				DEVELOPMENT_TEAM = 9CD4G9428T;
+				DEVELOPMENT_ASSET_PATHS = "\"MagicBlue/Preview Content\"";
+				DEVELOPMENT_TEAM = 9S4XSSR34J;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "BLE-Demo/Info.plist";
+				INFOPLIST_FILE = MagicBlue/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -395,10 +403,10 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 2;
-				DEVELOPMENT_ASSET_PATHS = "\"BLE-Demo/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"MagicBlue/Preview Content\"";
 				DEVELOPMENT_TEAM = V838XQ8S9F;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = "BLE-Demo/Info.plist";
+				INFOPLIST_FILE = MagicBlue/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -415,7 +423,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		715D90DB25C9086500F19093 /* Build configuration list for PBXProject "BLE-Demo" */ = {
+		715D90DB25C9086500F19093 /* Build configuration list for PBXProject "MagicBlue" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				715D90ED25C9086700F19093 /* Debug */,
@@ -424,7 +432,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		715D90EF25C9086700F19093 /* Build configuration list for PBXNativeTarget "BLE-Demo" */ = {
+		715D90EF25C9086700F19093 /* Build configuration list for PBXNativeTarget "MagicBlue" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				715D90F025C9086700F19093 /* Debug */,

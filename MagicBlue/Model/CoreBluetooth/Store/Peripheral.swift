@@ -2,7 +2,6 @@
 //  Peripheral.swift
 //  BLEDemo
 //
-
 import CoreBluetooth
 
 class Peripheral: Identifiable {

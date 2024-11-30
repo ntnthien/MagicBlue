@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:/Users/do/Desktop/iOS-SwiftUI-BLE-Project/BLE-Demo.xcodeproj">
+      location = "self:">
    </FileRef>
 </Workspace>

@@ -22,22 +22,15 @@ struct ListView: View {
         ZStack {
             navigateToDetailView(isDetailViewLinkActive: $bleManager.isConnected)
             
-//                VStack {
-//                    Text("Bluetooth state is \(bleManager.managerState.description)")
-//                        .font(.title3)
-//                        .padding(10)
-                    
-                    List {
-                        Section {
-                            PeripheralCells()
-                        } header: {
-                            Toggle(isOn: $bleManager.isFilterEnabled) {
-                                Text("Only Bulb Service UUID (\(BLEViewModel.Constants.serviceUUID))")
-                            }
-                        }
+            List {
+                Section {
+                    PeripheralCells()
+                } header: {
+                    Toggle(isOn: $bleManager.isFilterEnabled) {
+                        Text("Only Bulb Service UUID (\(BLEViewModel.Constants.serviceUUID))")
                     }
-//                }
-            
+                }
+            }            
         }
         .toolbar {
             Button(action: {
@@ -49,8 +42,8 @@ struct ListView: View {
             }) {
                 Text(bleManager.isSearching ? "Stop scanning" : "Start scanning")
             }
-            
         }
+        .disabled(bleManager.managerState != .poweredOn)
         .onReceive(bleManager.$isFilterEnabled) { value in
             if bleManager.isSearching {
                 bleManager.startScan()

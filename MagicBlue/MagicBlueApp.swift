@@ -1,12 +1,12 @@
 //
-//  BLE_DemoApp.swift
+//  MagicBlueApp.swift
 //  BLEDemo
 //
 
 import SwiftUI
 
 @main
-struct BLE_DemoApp: App {
+struct MagicBlueApp: App {
     var body: some Scene {
         WindowGroup {
             ContentView()

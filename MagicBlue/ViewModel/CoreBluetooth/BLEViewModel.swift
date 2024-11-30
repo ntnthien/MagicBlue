@@ -2,7 +2,6 @@
 //  BLEViewModel.swift
 //  BLEDemo
 //
-
 import SwiftUI
 import CoreBluetooth
 import Combine
@@ -56,6 +55,7 @@ class BLEViewModel: NSObject, ObservableObject {
     @Published var connectedDeviceName: String?
     @Published var color: Color = .red
     @Published var brightness: UInt8 = 0
+    @Published var effectSpeed: UInt8 = 0
     @Published var status: Bool = false
     @Published var effectB: Effect = .blueGradualChange
     @Published var isFilterEnabled: Bool = false
@@ -72,18 +72,15 @@ class BLEViewModel: NSObject, ObservableObject {
     }
     
     private func resetConfigure() {
-//        withAnimation {
-            isSearching = false
-            isConnected = false
-            
-            foundPeripherals = []
-            foundServices = []
-            foundCharacteristics = []
-//        }
+        isSearching = false
+        isConnected = false
+        
+        foundPeripherals = []
+        foundServices = []
+        foundCharacteristics = []
     }
     
     func startScan() {
-//        resetConfigure()
         resetConfigure()
         let services: [CBUUID]? = isFilterEnabled ? [.init(string: Constants.serviceUUID)] : nil
         let scanOption = [CBCentralManagerScanOptionAllowDuplicatesKey: false]
@@ -184,17 +181,13 @@ extension BLEViewModel: CBPeripheralProtocolDelegate {
     }
     
     func didDiscoverCharacteristics(_ peripheral: CBPeripheralProtocol, service: CBService, error: Error?) {
-//        guard service.uuid.uuidString == Constants.serviceUUID else { return }
         service.characteristics?.forEach { characteristic in
             let setCharacteristic: ThermoCharacteristic = .init(uuid: characteristic.uuid,
                                                                readValue: nil,
                                                                service: characteristic.service!)
-//            if setCharacteristic.type != .unknown {
-                foundCharacteristics.append(setCharacteristic)
-                peripheral.readValue(for: characteristic)
-//                peripheral.setNotifyValue(true, for: characteristic)
-//            }
-            
+            foundCharacteristics.append(setCharacteristic)
+            peripheral.readValue(for: characteristic)
+
             if characteristic.uuid.uuidString == Constants.readCharacteristic {
                 readCharacteristic = characteristic
                 peripheral.setNotifyValue(true, for: readCharacteristic)
@@ -226,22 +219,20 @@ extension BLEViewModel: CBPeripheralProtocolDelegate {
         }
     }
     
-    func didWriteValue(_ peripheral: CBPeripheralProtocol, descriptor: CBDescriptor, error: Error?) {
-
-    }
+    func didWriteValue(_ peripheral: CBPeripheralProtocol, descriptor: CBDescriptor, error: Error?) {}
     
     func updateDeviceInfo(buffer: [UInt8]) {
-        var info: [String: Any] = [
-            "device_type": buffer[1],
-            "on": buffer[2] == 0x23,
-            "effect_no": buffer[3],
-            "effect_speed": buffer[5],
-            "r": buffer[6],
-            "g": buffer[7],
-            "b": buffer[8],
-            "brightness": buffer[9],
-            "version": buffer[10]
-        ]
+//        var info: [String: Any] = [
+//            "device_type": buffer[1],
+//            "on": buffer[2] == 0x23,
+//            "effect_no": buffer[3],
+//            "effect_speed": buffer[5],
+//            "r": buffer[6],
+//            "g": buffer[7],
+//            "b": buffer[8],
+//            "brightness": buffer[9],
+//            "version": buffer[10]
+//        ]
         
         status = buffer[2] == 0x23
         
@@ -263,102 +254,8 @@ extension BLEViewModel: CBPeripheralProtocolDelegate {
                                              type: type)
         }
     }
-    
-//    func publishColorChange(_ color: Color) {
-//        let colors = color.uInt8Array
-//        var command: [UInt8] = [0x56, 0x00, 0xF0, 0xAA]
-//        commands.insert(contentsOf: colors, at: 1)
-//        foundPeripherals.forEach { peripheral in
-//            guard let writeCharacteristic else { return }
-//            peripheral.peripheral.writeValue(Data(command),
-//                                             for: writeCharacteristic,
-//                                             type: .withoutResponse)
-//        }
-//    }
 }
 
-enum Effect: UInt8, CaseIterable {
-    case sevenColorCrossFade = 0x25
-    case redGradualChange = 0x26
-    case greenGradualChange = 0x27
-    case blueGradualChange = 0x28
-    case yellowGradualChange = 0x29
-    case cyanGradualChange = 0x2a
-    case purpleGradualChange = 0x2b
-    case whiteGradualChange = 0x2c
-    case redGreenCrossFade = 0x2d
-    case redBlueCrossFade = 0x2e
-    case greenBlueCrossFade = 0x2f
-    case sevenColorStrobeFlash = 0x30
-    case redStrobeFlash = 0x31
-    case greenStrobeFlash = 0x32
-    case blueStrobeFlash = 0x33
-    case yellowStrobeFlash = 0x34
-    case cyanStrobeFlash = 0x35
-    case purpleStrobeFlash = 0x36
-    case whiteStrobeFlash = 0x37
-    case sevenColorJumpingChange = 0x38
-    
-    var description: String {
-        switch self {
-        case .sevenColorCrossFade: return "Seven Color Cross Fade"
-        case .redGradualChange: return "Red Gradual Change"
-        case .greenGradualChange: return "Green Gradual Change"
-        case .blueGradualChange: return "Blue Gradual Change"
-        case .yellowGradualChange: return "Yellow Gradual Change"
-        case .cyanGradualChange: return "Cyan Gradual Change"
-        case .purpleGradualChange: return "Purple Gradual Change"
-        case .whiteGradualChange: return "White Gradual Change"
-        case .redGreenCrossFade: return "Red Green Cross Fade"
-        case .redBlueCrossFade: return "Red Blue Cross Fade"
-        case .greenBlueCrossFade: return "Green Blue Cross Fade"
-        case .sevenColorStrobeFlash: return "Seven Color Strobe Flash"
-        case .redStrobeFlash: return "Red Strobe Flash"
-        case .greenStrobeFlash: return "Green Strobe Flash"
-        case .blueStrobeFlash: return "Blue Strobe Flash"
-        case .yellowStrobeFlash: return "Yellow Strobe Flash"
-        case .cyanStrobeFlash: return "Cyan Strobe Flash"
-        case .purpleStrobeFlash: return "Purple Strobe Flash"
-        case .whiteStrobeFlash: return "White Strobe Flash"
-        case .sevenColorJumpingChange: return "Seven Color Jumping Change"
-        }
-    }
-}
-
-enum Command {
-    case turnOn
-    case turnOff
-    case setNotification
-    case getDeviceInfo
-    case setColor(color: Color)
-    case setBrightness(value: UInt8)
-    case setEffect(effect: Effect, speed: UInt8)
-    
-    var command: [UInt8] {
-        switch self {
-        case .turnOn:
-            return [0xCC, 0x23, 0x33]
-        case .turnOff:
-            return [0xCC, 0x24, 0x33]
-        case .setNotification:
-            return [0x01, 0x00]
-        case .getDeviceInfo:
-            return [0xEF, 0x01, 0x77]
-        case .setColor(let color):
-            let colors = color.uInt8Array
-            var command: [UInt8] = [0x56, 0x00, 0xF0, 0xAA]
-            command.insert(contentsOf: colors, at: 1)
-            return command
-        case .setBrightness(let value):
-            return [0x56, 0x00, 0x00, 0x00, value, 0x0F, 0xAA]
-        case .setEffect(let effect, let speed):
-            var speed = max(speed, 1)
-            speed = min(speed, 20)
-            var command: [UInt8] = [0xBB, effect.rawValue, speed, 0x44]
-            return command
-        }
-    }
-}
 extension Color {
     var uInt8Array: [UInt8] {
         let components = cgColor?.components

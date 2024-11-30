@@ -2,7 +2,6 @@
 //  Service.swift
 //  BLEDemo
 //
-
 import CoreBluetooth
 
 class Service: Identifiable {

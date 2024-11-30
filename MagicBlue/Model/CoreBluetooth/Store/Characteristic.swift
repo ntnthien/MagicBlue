@@ -2,7 +2,6 @@
 //  Characteristic.swift
 //  BLEDemo
 //
-
 import CoreBluetooth
 
 class Characteristic: Identifiable {
@@ -57,7 +56,6 @@ enum ThermoCharacteriticType: String {
     }
 }
 class ThermoCharacteristic: Identifiable {
-    
     var uuid: CBUUID
     var readValue: Double?
     var service: CBService

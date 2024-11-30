@@ -2,7 +2,6 @@
 //  BLEViewModelExtension.swift
 //  BLEDemo
 //
-
 import CoreBluetooth
 
 extension BLEViewModel: CBCentralManagerDelegate {
@@ -57,5 +56,4 @@ extension BLEViewModel: CBPeripheralDelegate {
     func peripheral(_ peripheral: CBPeripheral, didWriteValueFor descriptor: CBDescriptor, error: Error?) {
         didWriteValue(peripheral, descriptor: descriptor, error: error)
     }
-
 }
